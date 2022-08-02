@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32611.2
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimingAnalyz", "TimingAnalyz\TimingAnalyz.csproj", "{D3B721C7-FAD1-493D-A280-5A5237DCA786}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Benchmarks", "Benchmarks", "{0E224474-7CA4-4A7F-8DF3-2CF488AA70F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BpmDetectorBenchmark", "BpmDetectorBenchmark\BpmDetectorBenchmark.csproj", "{EBB2E81D-367F-4B8C-90A7-D58CE73DD90F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3B721C7-FAD1-493D-A280-5A5237DCA786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3B721C7-FAD1-493D-A280-5A5237DCA786}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3B721C7-FAD1-493D-A280-5A5237DCA786}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3B721C7-FAD1-493D-A280-5A5237DCA786}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBB2E81D-367F-4B8C-90A7-D58CE73DD90F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBB2E81D-367F-4B8C-90A7-D58CE73DD90F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBB2E81D-367F-4B8C-90A7-D58CE73DD90F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBB2E81D-367F-4B8C-90A7-D58CE73DD90F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EBB2E81D-367F-4B8C-90A7-D58CE73DD90F} = {0E224474-7CA4-4A7F-8DF3-2CF488AA70F8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DCBE0DA7-E00A-4696-81BC-A832F6708429}
+	EndGlobalSection
+EndGlobal
