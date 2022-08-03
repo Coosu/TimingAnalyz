@@ -2,7 +2,6 @@
 
 using Milki.Extensions.MixPlayer;
 using Milki.Extensions.MixPlayer.Utilities;
-using NAudio.Flac;
 using NAudio.Vorbis;
 using NAudio.Wave;
 using TimingAnalyz;

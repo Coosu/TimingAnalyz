@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using System;
 using System.Collections.Generic;
+using NVorbis.Contracts;
 
 // ReSharper disable once CheckNamespace
 namespace NAudio.Vorbis
