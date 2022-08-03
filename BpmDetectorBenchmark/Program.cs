@@ -10,25 +10,29 @@ using TimingAnalyz.Old;
 BenchmarkRunner.Run<BpmDetectorTask>();
 
 [SimpleJob(RuntimeMoniker.Net50)]
+[SimpleJob(RuntimeMoniker.Net60)]
 [MemoryDiagnoser]
 [Orderer(SummaryOrderPolicy.FastestToSlowest)]
 public class BpmDetectorTask
 {
     private SmartWaveReader _reader;
-    private MediaFoundationReader _reader2;
+    private WaveStream _reader2;
 
     [GlobalSetup]
     public void Setup()
     {
         var file = @"C:\Users\milkitic\AppData\Local\osu!\Songs\cYsmix_triangles\audio.mp3";
         _reader = new SmartWaveReader(file);
-        _reader2 = new MediaFoundationReader(file);
+
+        _reader2 = (file.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase))
+            ? new Mp3FileReaderBase(file, k => new AcmMp3FrameDecompressor(k))
+            : new SmartWaveReader(file);
     }
 
     [Benchmark(Baseline = true)]
     public object? NewSmart()
     {
-        var sampleInfo = WaveStreamHelper.GetSamples(_reader);
+        var sampleInfo = WaveStreamHelper.GetSamples(_reader2);
         return BpmDetectHelper.Analyze(sampleInfo);
     }
 

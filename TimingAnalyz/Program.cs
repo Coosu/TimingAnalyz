@@ -1,12 +1,16 @@
 ﻿// From: https://github.com/TheOsch/naudio-bpm
 
-using Milki.Extensions.MixPlayer.NAudioExtensions.Wave;
+using Milki.Extensions.MixPlayer;
+using Milki.Extensions.MixPlayer.Utilities;
+using NAudio.Flac;
+using NAudio.Vorbis;
+using NAudio.Wave;
 using TimingAnalyz;
 
-Console.WriteLine("NAudio BPM demo");
-Console.WriteLine("Usage: NAudioBPM <Audio file path or URI> [<start(sec)> [<length(sec)>]]");
 if (args.Length == 0)
 {
+    Console.WriteLine("TimingAnalyz");
+    Console.WriteLine("Usage: TimingAnalyz <Audio file path or URI> [<start(sec)> [<length(sec)>]]");
     return;
 }
 
@@ -16,19 +20,45 @@ if (args.Length > 1) int.TryParse(args[1], out start);
 if (args.Length > 2) int.TryParse(args[2], out length);
 
 SampleInfo sampleInfo;
-using (var reader = new SmartWaveReader(file))
+
+using (var sourceStream = File.OpenRead(file))
 {
-    sampleInfo = WaveStreamHelper.GetSamples(reader);
+    var type = FileFormatHelper.GetFileFormatFromStream(sourceStream);
+    WaveStream reader = type switch
+    {
+        FileFormat.Wav => new WaveFileReader(sourceStream),
+        FileFormat.Mp3 or FileFormat.Mp3Id3 => new StreamMediaFoundationReader(sourceStream),
+        FileFormat.Ogg => new VorbisWaveReader(sourceStream),
+        FileFormat.Aiff => new AiffFileReader(sourceStream),
+        _ => new StreamMediaFoundationReader(sourceStream)
+    };
+    if (type == FileFormat.Wav)
+    {
+        if (reader.WaveFormat.Encoding is not (WaveFormatEncoding.Pcm or WaveFormatEncoding.IeeeFloat))
+        {
+            throw new FormatException($"Encoding {reader.WaveFormat.Encoding} not supported.");
+        }
+    }
+    //WaveStream reader = (file.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase))
+    //    ? new Mp3FileReaderBase(file, k => new AcmMp3FrameDecompressor(k))
+    //    : new SmartWaveReader(file);
+    using (reader)
+    {
+        Console.WriteLine("Reading audio file...");
+        sampleInfo = WaveStreamHelper.GetSamples(reader);
+    }
 }
 
+Console.WriteLine("Detecting timing...");
 var groups = BpmDetectHelper.Analyze(sampleInfo, start, length);
 if (groups.Length <= 0)
 {
-    Console.Error.WriteLine("ERROR: Cannot determine the BPM.");
+    Console.Error.WriteLine("\r\nERROR: Cannot determine the BPM.");
     return;
 }
 
-Console.WriteLine($"Most probable BPM is {groups[0].Tempo} ({groups[0].Count} samples)");
+var addition = groups[0].Tempo < 110 ? $", or double as {groups[0].Tempo * 2}" : "";
+Console.WriteLine($"\r\nMost probable BPM is {groups[0].Tempo}{addition} ({groups[0].Count} samples)");
 if (groups.Length <= 1)
 {
     return;
@@ -39,3 +69,6 @@ for (int i = 1; i < groups.Length; ++i)
 {
     Console.WriteLine($"{groups[i].Tempo} BPM ({groups[i].Count} samples)");
 }
+
+Console.WriteLine("\r\nPress any key to continue...");
+Console.ReadKey(true);

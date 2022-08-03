@@ -6,10 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>10</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TrimmerDefaultAction>link</TrimmerDefaultAction>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Milki.Extensions.MixPlayer" Version="0.0.24" />
+    <ProjectReference Include="..\Dependencies\NAudio\NAudio.Core\NAudio.Core.csproj" />
+    <ProjectReference Include="..\Dependencies\NAudio\NAudio.Wasapi\NAudio.Wasapi.csproj" />
   </ItemGroup>
 
 </Project>

@@ -32,7 +32,7 @@ public static class WaveStreamHelper
 
         var length = sampleCount / channels * channels;
 
-        var sampleReader = waveStream.ToSampleProvider();
+        var sampleReader = SampleProviderConverters.ConvertWaveProviderIntoSampleProvider(waveStream);
         var samples = new float[length];
         sampleReader.Read(samples, 0, length);
         return new SampleInfo(samples, sampleRate, channels);

@@ -7,7 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimingAnalyz", "TimingAnaly
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Benchmarks", "Benchmarks", "{0E224474-7CA4-4A7F-8DF3-2CF488AA70F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BpmDetectorBenchmark", "BpmDetectorBenchmark\BpmDetectorBenchmark.csproj", "{EBB2E81D-367F-4B8C-90A7-D58CE73DD90F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BpmDetectorBenchmark", "BpmDetectorBenchmark\BpmDetectorBenchmark.csproj", "{EBB2E81D-367F-4B8C-90A7-D58CE73DD90F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{08BAB401-8FDE-4E71-976B-A9DDC9CBA54F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NAudio.Core", "Dependencies\NAudio\NAudio.Core\NAudio.Core.csproj", "{289C9368-5552-4287-92A2-29EA5C241809}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NAudio.Wasapi", "Dependencies\NAudio\NAudio.Wasapi\NAudio.Wasapi.csproj", "{C184443F-8E90-419E-B2A4-8120B40A5263}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +29,22 @@ Global
 		{EBB2E81D-367F-4B8C-90A7-D58CE73DD90F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBB2E81D-367F-4B8C-90A7-D58CE73DD90F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBB2E81D-367F-4B8C-90A7-D58CE73DD90F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{289C9368-5552-4287-92A2-29EA5C241809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{289C9368-5552-4287-92A2-29EA5C241809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{289C9368-5552-4287-92A2-29EA5C241809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{289C9368-5552-4287-92A2-29EA5C241809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C184443F-8E90-419E-B2A4-8120B40A5263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C184443F-8E90-419E-B2A4-8120B40A5263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C184443F-8E90-419E-B2A4-8120B40A5263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C184443F-8E90-419E-B2A4-8120B40A5263}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EBB2E81D-367F-4B8C-90A7-D58CE73DD90F} = {0E224474-7CA4-4A7F-8DF3-2CF488AA70F8}
+		{289C9368-5552-4287-92A2-29EA5C241809} = {08BAB401-8FDE-4E71-976B-A9DDC9CBA54F}
+		{C184443F-8E90-419E-B2A4-8120B40A5263} = {08BAB401-8FDE-4E71-976B-A9DDC9CBA54F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DCBE0DA7-E00A-4696-81BC-A832F6708429}
