@@ -23,24 +23,35 @@ SampleInfo sampleInfo;
 using (var sourceStream = File.OpenRead(file))
 {
     var type = FileFormatHelper.GetFileFormatFromStream(sourceStream);
-    WaveStream reader = type switch
+    WaveStream reader;
+    try
     {
-        FileFormat.Wav => new WaveFileReader(sourceStream),
-        FileFormat.Mp3 or FileFormat.Mp3Id3 => new StreamMediaFoundationReader(sourceStream),
-        FileFormat.Ogg => new VorbisWaveReader(sourceStream),
-        FileFormat.Aiff => new AiffFileReader(sourceStream),
-        _ => new StreamMediaFoundationReader(sourceStream)
-    };
+        reader = type switch
+        {
+            FileFormat.Wav => new WaveFileReader(sourceStream),
+            FileFormat.Mp3 or FileFormat.Mp3Id3 => new StreamMediaFoundationReader(sourceStream),
+            FileFormat.Ogg => new VorbisWaveReader(sourceStream),
+            FileFormat.Aiff => new AiffFileReader(sourceStream),
+            _ => new StreamMediaFoundationReader(sourceStream)
+        };
+    }
+    catch (Exception ex)
+    {
+        var message = string.IsNullOrEmpty(ex.Message) ? ex.ToString() : ex.Message;
+        Console.Error.WriteLine($"ERROR: {message}");
+        WaitForPress();
+        return;
+    }
+
     if (type == FileFormat.Wav)
     {
         if (reader.WaveFormat.Encoding is not (WaveFormatEncoding.Pcm or WaveFormatEncoding.IeeeFloat))
         {
-            throw new FormatException($"Encoding {reader.WaveFormat.Encoding} not supported.");
+            Console.Error.WriteLine($"ERROR: Encoding {reader.WaveFormat.Encoding} not supported.");
+            WaitForPress();
         }
     }
-    //WaveStream reader = (file.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase))
-    //    ? new Mp3FileReaderBase(file, k => new AcmMp3FrameDecompressor(k))
-    //    : new SmartWaveReader(file);
+
     using (reader)
     {
         Console.WriteLine("Reading audio file...");
@@ -53,6 +64,7 @@ var groups = BpmDetectHelper.Analyze(sampleInfo, start, length);
 if (groups.Length <= 0)
 {
     Console.Error.WriteLine("\r\nERROR: Cannot determine the BPM.");
+    WaitForPress();
     return;
 }
 
@@ -60,6 +72,7 @@ var addition = groups[0].Tempo < 110 ? $", or double as {groups[0].Tempo * 2}" :
 Console.WriteLine($"\r\nMost probable BPM is {groups[0].Tempo}{addition} ({groups[0].Count} samples)");
 if (groups.Length <= 1)
 {
+    WaitForPress();
     return;
 }
 
@@ -69,5 +82,10 @@ for (int i = 1; i < groups.Length; ++i)
     Console.WriteLine($"{groups[i].Tempo} BPM ({groups[i].Count} samples)");
 }
 
-Console.WriteLine("\r\nPress any key to continue...");
-Console.ReadKey(true);
+WaitForPress();
+
+void WaitForPress()
+{
+    Console.WriteLine("\r\nPress any key to continue...");
+    Console.ReadKey(true);
+}

@@ -2,7 +2,7 @@
   "profiles": {
     "TimingAnalyz": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\milkitic\\Downloads\\1626188 Rish feat. Choko - Tanaka [no video]\\audio.ogg\""
+      "commandLineArgs": "F:\\Test\\320.mp3"
     }
   }
 }
