@@ -7,13 +7,6 @@
     <Nullable>enable</Nullable>
     <LangVersion>10</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TrimmerDefaultAction>link</TrimmerDefaultAction>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Dependencies\NAudio\NAudio.Core\NAudio.Core.csproj" />
-    <ProjectReference Include="..\Dependencies\NAudio\NAudio.Wasapi\NAudio.Wasapi.csproj" />
-    <ProjectReference Include="..\Dependencies\NVorbis\NVorbis\NVorbis.csproj" />
-  </ItemGroup>
 
 </Project>
